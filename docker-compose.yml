@@ -2,18 +2,22 @@ services:
   postgres:
     image: postgres:16
     container_name: wagering-postgres
+
     environment:
       POSTGRES_DB: wagering
       POSTGRES_USER: wagering
       POSTGRES_PASSWORD: wagering
+
     ports:
       - "5432:5432"
 
   localstack:
     image: localstack/localstack
     container_name: wagering-localstack
+
     environment:
       SERVICES: sqs
       AWS_DEFAULT_REGION: us-east-1
+
     ports:
       - "4566:4566"
