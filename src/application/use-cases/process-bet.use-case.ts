@@ -1,9 +1,9 @@
-import { Wallet } from '../../domain/wallet/wallet';
-import { WagerTransaction } from '../../domain/transaction/wager-transaction';
+import { Wallet } from '../../domain/wallet/wallet.js';
+import { WagerTransaction } from '../../domain/transaction/wager-transaction.js';
 import {
   WalletLedgerEntry,
   LedgerDirection,
-} from '../../domain/ledger/wallet-ledger-entry';
+} from '../../domain/ledger/wallet-ledger-entry.js';
 
 interface ExecuteProps {
   wallet: Wallet;
@@ -15,6 +15,15 @@ export class ProcessBetUseCase {
     wallet,
     transaction,
   }: ExecuteProps) {
+    if (wallet.balance.isLessThan(transaction.money)) {
+      transaction.reject('INSUFFICIENT_FUNDS');
+      return {
+        wallet,
+        transaction,
+        ledger: undefined,
+      };
+    }
+
     const balanceBefore = wallet.balance;
 
     wallet.debit(transaction.money);

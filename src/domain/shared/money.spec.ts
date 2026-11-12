@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test';
+import { describe, expect, it } from 'vitest';
 import { Money } from './money';
 
 describe('Money', () => {
@@ -187,6 +187,10 @@ describe('Money', () => {
     const money = Money.zero('BRL');
 
     expect(money.isZero()).toBe(true);
+  });
+
+  it('should not treat zero as positive', () => {
+    expect(Money.zero('BRL').isPositive()).toBe(false);
   });
 
   it('should identify positive value', () => {

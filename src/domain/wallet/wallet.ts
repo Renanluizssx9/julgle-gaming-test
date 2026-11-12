@@ -1,4 +1,4 @@
-import { Money } from '../shared/money';
+import { Money } from '../shared/money.js';
 
 interface OpenWalletProps {
   id: string;
@@ -22,6 +22,22 @@ export class Wallet {
       props.initialBalance.currency,
       props.initialBalance,
       1,
+    );
+  }
+
+  static restore(props: {
+    id: string;
+    playerId: string;
+    currency: string;
+    balance: Money;
+    version: number;
+  }): Wallet {
+    return new Wallet(
+      props.id,
+      props.playerId,
+      props.currency,
+      props.balance,
+      props.version,
     );
   }
 

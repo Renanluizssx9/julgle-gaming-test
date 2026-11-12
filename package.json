@@ -1,10 +1,38 @@
 {
+  "name": "jungle-gaming",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "bun test",
+    "test:watch": "bun test --watch",
+    "test:integration": "bun scripts/run-integration-tests.mjs",
+    "test:vitest": "vitest run",
+    "build": "tsc -p tsconfig.build.json",
+    "migrate": "npm run build && bun scripts/migrate.mjs",
+    "sqs:setup": "bun scripts/create-local-sqs-queues.mjs",
+    "start": "bun dist/main.js",
+    "start:node": "node --env-file-if-exists=.env dist/main.js"
+  },
   "dependencies": {
+    "@aws-sdk/client-sqs": "^3.1166.0",
     "@mikro-orm/core": "^7.2.8",
     "@mikro-orm/migrations": "^7.2.8",
     "@mikro-orm/nestjs": "^7.1.0",
     "@mikro-orm/postgresql": "^7.2.8",
+    "@nestjs/common": "^11.2.9",
     "@nestjs/config": "^12.1.1",
-    "decimal.js": "^10.6.0"
+    "@nestjs/core": "^11.2.9",
+    "@nestjs/platform-express": "^11.2.9",
+    "@nestjs/testing": "^11.2.9",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.15.1",
+    "decimal.js": "^10.6.0",
+    "reflect-metadata": "^0.2.2",
+    "rxjs": "^7.8.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "typescript": "^5.7.2",
+    "vitest": "^5.1.0"
   }
 }

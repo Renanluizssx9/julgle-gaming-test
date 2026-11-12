@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test';
+import { describe, expect, it } from 'vitest';
 
 import { Money } from '../../domain/shared/money';
 import { Wallet } from '../../domain/wallet/wallet';
@@ -60,7 +60,7 @@ describe('ProcessBetUseCase', () => {
     ).toBe('DEBIT');
   });
 
-  it('should reject insufficient balance', () => {
+  it('should audit insufficient balance without changing wallet or ledger', () => {
     const wallet = Wallet.open({
       id: 'wallet-1',
       playerId: 'player-1',
@@ -89,11 +89,11 @@ describe('ProcessBetUseCase', () => {
     const useCase =
       new ProcessBetUseCase();
 
-    expect(() =>
-      useCase.execute({
-        wallet,
-        transaction,
-      }),
-    ).toThrow();
+    const result = useCase.execute({ wallet, transaction });
+
+    expect(result.transaction.status).toBe(WagerTransactionStatus.Rejected);
+    expect(result.transaction.failureCode).toBe('INSUFFICIENT_FUNDS');
+    expect(result.wallet.balance.toString()).toBe('10.00');
+    expect(result.ledger).toBeUndefined();
   });
 });

@@ -1,46 +1,37 @@
-import {
-  Entity,
-  PrimaryKey,
-  Property,
-  Unique,
-} from '@mikro-orm/core';
+import { defineEntity } from '@mikro-orm/core';
 
-@Entity({
+export const WalletEntity = defineEntity({
+  name: 'Wallet',
   tableName: 'wallets',
-})
-@Unique({
-  properties: [
-    'playerId',
-    'currency',
-  ],
-})
-export class WalletEntity {
-  @PrimaryKey()
-  id!: string;
-
-  @Property()
-  playerId!: string;
-
-  @Property({
-    length: 3,
-  })
-  currency!: string;
-
-  @Property({
-    type: 'decimal',
-    precision: 18,
-    scale: 2,
-  })
-  balance!: string;
-
-  @Property()
-  version!: number;
-
-  @Property()
-  createdAt = new Date();
-
-  @Property({
-    onUpdate: () => new Date(),
-  })
-  updatedAt = new Date();
-}
+  properties: {
+    id: {
+      type: 'uuid',
+      primary: true,
+    },
+    playerId: {
+      type: 'uuid',
+    },
+    currency: {
+      type: 'string',
+      length: 3,
+    },
+    balance: {
+      type: 'decimal',
+      precision: 18,
+      scale: 2,
+    },
+    version: {
+      type: 'number',
+    },
+    createdAt: {
+      type: 'Date',
+      onCreate: () => new Date(),
+    },
+    updatedAt: {
+      type: 'Date',
+      onCreate: () => new Date(),
+      onUpdate: () => new Date(),
+    },
+  },
+  uniques: [{ properties: ['playerId', 'currency'] }],
+});

@@ -1,6 +1,6 @@
-import { Wallet } from '../../domain/wallet/wallet';
+import { Wallet } from '../../domain/wallet/wallet.js';
 
-import { WagerTransaction } from '../../domain/transaction/wager-transaction';
+import { WagerTransaction } from '../../domain/transaction/wager-transaction.js';
 
 interface ExecuteProps {
   wallet: Wallet;

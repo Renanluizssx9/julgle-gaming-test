@@ -1,4 +1,4 @@
-import Decimal from 'decimal.js';
+import { Decimal } from 'decimal.js';
 
 export interface MoneyProps {
   amount: string;
@@ -65,7 +65,7 @@ export class Money {
   }
 
   isPositive(): boolean {
-    return this.value.isPositive();
+    return this.value.greaterThan(0);
   }
 
   isNegative(): boolean {

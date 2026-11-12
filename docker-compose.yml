@@ -4,20 +4,21 @@ services:
     container_name: wagering-postgres
 
     environment:
-      POSTGRES_DB: wagering
-      POSTGRES_USER: wagering
-      POSTGRES_PASSWORD: wagering
+      POSTGRES_DB: ${DB_NAME:-wagering}
+      POSTGRES_USER: ${DB_USER:-wagering}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-wagering}
 
     ports:
-      - "5432:5432"
+      - "${DB_PORT:-5432}:5432"
 
   localstack:
-    image: localstack/localstack
+    image: localstack/localstack:3.8.1
     container_name: wagering-localstack
 
     environment:
       SERVICES: sqs
       AWS_DEFAULT_REGION: us-east-1
+      SQS_ENDPOINT_STRATEGY: path
 
     ports:
       - "4566:4566"

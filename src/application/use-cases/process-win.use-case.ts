@@ -1,11 +1,11 @@
-import { Wallet } from '../../domain/wallet/wallet';
+import { Wallet } from '../../domain/wallet/wallet.js';
 
-import { WagerTransaction } from '../../domain/transaction/wager-transaction';
+import { WagerTransaction } from '../../domain/transaction/wager-transaction.js';
 
 import {
   WalletLedgerEntry,
   LedgerDirection,
-} from '../../domain/ledger/wallet-ledger-entry';
+} from '../../domain/ledger/wallet-ledger-entry.js';
 
 interface ExecuteProps {
   wallet: Wallet;

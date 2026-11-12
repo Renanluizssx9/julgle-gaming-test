@@ -1,4 +1,4 @@
-import { Money } from '../shared/money';
+import { Money } from '../shared/money.js';
 
 export type LedgerDirection = 'DEBIT' | 'CREDIT';
 
@@ -41,6 +41,26 @@ export class WalletLedgerEntry {
     }
 
     return entry;
+  }
+
+  static restore(props: {
+    id: string;
+    walletId: string;
+    transactionId: string;
+    direction: LedgerDirection;
+    money: Money;
+    balanceBefore: Money;
+    balanceAfter: Money;
+  }): WalletLedgerEntry {
+    return new WalletLedgerEntry(
+      props.id,
+      props.walletId,
+      props.transactionId,
+      props.direction,
+      props.money,
+      props.balanceBefore,
+      props.balanceAfter,
+    );
   }
 
   isBalanced(): boolean {

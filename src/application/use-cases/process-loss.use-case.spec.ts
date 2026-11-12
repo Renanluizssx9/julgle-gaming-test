@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test';
+import { describe, expect, it } from 'vitest';
 
 import { Money } from '../../domain/shared/money';
 import { Wallet } from '../../domain/wallet/wallet';
