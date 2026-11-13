@@ -1,5 +1,15 @@
 # Jungle Gaming Wagering API
 
+Financial Domain Invariants
+Wallet balances can never become negative.
+Monetary operations require matching currencies.
+Ledger entries must reconcile balance_before, amount and balance_after.
+Terminal transactions cannot transition to another state.
+Idempotent requests produce exactly one financial outcome.
+
+Inbox Processing Flow
+SQS ↓ Inbox ↓ Idempotency Validation ↓ ProcessWagerTransactionService ↓ BET / WIN / LOSS / REFUND / ROLLBACK ↓ Inbox Processed
+
 ## Rodar localmente
 
 Requisitos: Bun 1.x e Docker.
